@@ -1,0 +1,7 @@
+
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^data\-support\.equity\.co\.id$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.data\-support\.equity\.co\.id$
+RewriteRule ^/?$ "ftp\:\/\/202\.148\.4\.6" [R=301,L]
+

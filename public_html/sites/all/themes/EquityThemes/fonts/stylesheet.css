@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'Bakersignet';
+  font-style: normal;
+  font-weight: bold;
+  src: url('BAKRSIGN.TTF') format('truetype');
+}
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('BebasNeue.ttf') format('truetype');
+}

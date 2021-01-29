@@ -1,0 +1,45 @@
+<?php
+// $Id$
+
+require_once drupal_get_path('module', 'mylivechat') . '/mylivechat.php';
+
+/*
+ * @file
+ * Drupal Module: mylivechat
+ */
+
+function mylivechat_menu() {
+  $items['admin/settings/mylivechat'] = array(
+    'title' => 'MyLiveChat',
+    'description' => 'Integrate MyLiveChat software with your website.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mylivechat_admin_settings_form'),
+    'access arguments' => array('administer mylivechat'),
+    'file' => 'mylivechat.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+function mylivechat_init() {
+  mylivechat::get_instance()->install_codes();
+}
+
+/**
+ * Chat button for Drupal block - admin configuration
+ */
+function mylivechat_block_info() {
+  return array('live-chat-display' =>
+    array('info' => t('MyLiveChat'))
+  );
+}
+
+/**
+ * Chat button for Drupal block - render
+ */
+function mylivechat_block_view() {
+  return array(
+    'content' => mylivechat::get_instance()->getChatCode()
+  );
+}

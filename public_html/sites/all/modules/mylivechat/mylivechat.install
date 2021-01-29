@@ -1,0 +1,58 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Installation file for MyLiveChat module.
+ */
+
+define('MYLIVECHAT_PHP_VERSION', '5.0');
+
+function mylivechat_requirements($phase) {
+
+  $requirements = array();
+  // Ensure translations don't break at install time
+  $t = get_t();
+
+  if ($phase == 'install') {
+    // Test PHP version
+    $requirements['php'] = array(
+      'title' => $t('PHP'),
+      'value' => ($phase == 'runtime') ? l(phpversion(), 'admin/logs/status/php') : phpversion(),
+    );
+    if (version_compare(PHP_VERSION, MYLIVECHAT_PHP_VERSION) < 0) {
+      $requirements['php']['description'] = $t('Your PHP installation is too old. LiveChat requires at least PHP %version.', array('%version' => MYLIVECHAT_PHP_VERSION));
+      $requirements['php']['severity'] = REQUIREMENT_ERROR;
+    }
+  }
+  elseif ($phase == 'runtime') {
+    // Raise warning if MyLiveChat user account has not been set yet.
+    $mylivechat = mylivechat::get_instance();
+    if ($mylivechat->is_installed() == FALSE) {
+      $requirements['mylivechat'] = array(
+        'title' => t('MyLiveChat'),
+        'description' => t('MyLiveChat is not properly configured. Please go to <a href="@url">MyLiveChat settings</a>.', array('@url' => url('admin/settings/mylivechat'))),
+        'severity' => REQUIREMENT_ERROR,
+        'value' => t('Not configured'),
+      );
+    }
+  }
+
+  return $requirements;
+}
+
+function mylivechat_install() {
+    variable_get('mylivechat_id','');
+    variable_get('mylivechat_displaytype','inline');
+    variable_get('mylivechat_membership','no');
+    variable_get('mylivechat_encrymode','');
+    variable_get('mylivechat_encrykey','');
+}
+
+function mylivechat_uninstall() {
+    variable_del('mylivechat_id');
+    variable_del('mylivechat_displaytype');
+    variable_del('mylivechat_membership');
+    variable_del('mylivechat_encrymode');
+    variable_del('mylivechat_encrykey');
+}

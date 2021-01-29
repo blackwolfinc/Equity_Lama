@@ -1,0 +1,6 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^bni\.equity\.co\.id$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.bni\.equity\.co\.id$
+RewriteRule ^/?$ "ftp\:\/\/202\.148\.4\.4\:5001" [R=301,L]
+

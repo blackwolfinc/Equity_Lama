@@ -1,0 +1,83 @@
+<?php
+
+function groupon_init() {
+
+   // drupal_set_message("Hello Agaain!");
+}
+
+function groupon_menu() {
+  $items=array();
+  
+  $items['groupon']=array(
+    'title'=>'Voucher Registration',
+	'description'=>'Hello Groupon',
+	'page callback'=>'drupal_get_form',
+	'page arguments'=>array('groupon_form'),
+	'access callback'=>'user_access',
+	'access arguments'=>array('access content'),
+	'type'=>MENU_NORMAL_ITEM
+  
+  );
+  return $items;
+
+}
+
+
+function groupon_form() {
+
+$form = array();
+$form['voucher_no'] = array(
+  '#weight' => '0',
+  '#required' => '1',
+  '#type' => 'textfield',
+  '#title' => t('Voucher No'),
+);
+$form['nama_lengkap'] = array(
+  '#weight' => '1',
+  '#required' => '1',
+  '#type' => 'textfield',
+  '#title' => t('Nama Lengkap'),
+);
+$form['tgl_lahir'] = array(
+  '#weight' => '2',
+  '#required' => '1',
+  '#type' => 'textfield',
+  '#title' => t('Tanggal Lahir'),
+);
+$form['no_ktp'] = array(
+  '#weight' => '3',
+  '#required' => '1',
+  '#type' => 'textfield',
+  '#title' => t('No. KTP'),
+);
+$form['email'] = array(
+  '#weight' => '4',
+  '#required' => '1',
+  '#type' => 'textfield',
+  '#title' => t('Email'),
+);
+$form['no_hp'] = array(
+  '#weight' => '5',
+  '#required' => '1',
+  '#type' => 'no_hp',
+  '#title' => t('Nomor HP'),
+);
+$form['medical'] = array(
+  '#default_value' => array(
+  ),
+  '#required' => '0',
+  '#key_type_toggled' => '1',
+  '#weight' => '6',
+  '#type' => 'checkboxes',
+  '#options' => array(
+    'one' => t('Medical Question 1'),
+  ),
+);
+$form['submit']=array (
+  '#type' => 'submit',
+   '#weight' => '7',
+  '#value' => 'Submit'
+ );
+return $form;
+
+}

@@ -1,0 +1,6 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^tableau\.equity\.co\.id$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.tableau\.equity\.co\.id$
+RewriteRule ^/?$ "http\:\/\/192\.168\.10\.50\/" [R=301,L]
+
